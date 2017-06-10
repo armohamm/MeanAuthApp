@@ -87,7 +87,7 @@ router.get('/fbhello', (req, res, next) => {
 
 //fb login
 router.get('/fblogin',
-  passport.authenticate('facebook', { scope: ['publish_actions'] })
+  passport.authenticate('facebook', { scope: ['public_profile','email'] })
   // ,  function(req,res){
   //    console.log("fblogin");
   //    res.json({"name":"sdada"});

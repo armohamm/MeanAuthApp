@@ -18,6 +18,9 @@ const UserSchema = mongoose.Schema({
   password: {
     type: String,
     required: true
+  } ,
+    fbuserid: {
+    type: String,
   }
 });
 
@@ -47,4 +50,16 @@ module.exports.comparePassword = function(candidatePassword, hash, callback){
     if(err) throw err;
     callback(null, isMatch);
   });
+}
+
+
+//faceId verification
+module.exports.getUserByFbUserId = function(userid, callback){
+  const query = {fbuserid: userid}
+  console.log('finding user id########## '+ userid);
+  User.findOne(query, callback);
+}
+//adding new fb user in db 
+module.exports.addFbUser = function(newUser, callback){
+  newUser.save(callback);
 }
