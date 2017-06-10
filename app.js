@@ -5,7 +5,9 @@ const cors = require('cors');
 const passport = require('passport');
 const mongoose = require('mongoose');
 const config = require('./config/database');
+const cookieParser = require('cookie-parser')
 
+//fb passport
 // Connect To Database
 mongoose.connect(config.database);
 
@@ -40,6 +42,17 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 require('./config/passport')(passport);
+//fb_login==============================
+// app.use(express.cookieParser());
+app.use(cookieParser());
+require('./config/passport_fb')(passport);
+//gogl_login==============================
+require('./config/passport_gogl')(passport);
+
+// app.get('/login/facebook',
+//   passport.authenticate('facebook'));
+//==================
+
 
 app.use('/users', users);
 

@@ -62,5 +62,14 @@ loadToken(){
   const token = localStorage.getItem('id_token');
   this.authToken = token;
 }
+
+//fbloginRequest
+fbLoginReq(){
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    console.log("fbloginreq");
+    return this.http.get('http://localhost:3000/users/fblogin',{headers: headers});
+    // .map(res =>res.json());
+  }
   
 }

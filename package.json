@@ -15,8 +15,9 @@
     "jsonwebtoken":"*",
     "body-parser":"*",
     "passport":"*",
-    "passport-jwt":"*"
+    "passport-jwt":"*",
+    "cookie-parser" : "*"
   },
-  "author": "Brad Traversy",
+  "author": "prince",
   "license": "ISC"
 }

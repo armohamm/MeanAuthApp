@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+   
   }
 
   onLoginSubmit(){
@@ -26,6 +27,7 @@ export class LoginComponent implements OnInit {
       username: this.username,
       password: this.password
     }
+     
 
     this.authService.authenticateUser(user).subscribe(data => {
       if(data.success){
@@ -41,6 +43,18 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['login']);
       }
     });
+  }
+
+  onButton1Click(){
+    console.log("buttonclicked");
+    this.authService.fbLoginReq();/*.subscribe(data =>{
+      if(data.success){
+      console.log(data);
+    }else
+    {
+       console.log("asdads");
+    }
+    });*/
   }
 
 }

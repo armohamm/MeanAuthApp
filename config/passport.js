@@ -3,7 +3,7 @@ const ExtractJwt = require('passport-jwt').ExtractJwt;
 const User = require('../models/user');
 const config = require('../config/database');
 
-module.exports = function(passport){
+module.exports = function (passport) {
   let opts = {};
   opts.jwtFromRequest = ExtractJwt.fromAuthHeader();
   opts.secretOrKey = config.secret;
@@ -12,15 +12,16 @@ module.exports = function(passport){
   //  console.log("============================================");
 
   passport.use(new JwtStrategy(opts, (jwt_payload, done) => {
-  // console.log("===================$$$$$$$=========================");
-  // console.log(jwt_payload);
-  //  console.log("===============$$$$$=============================");
+    // console.log("===================$$$$$$$=========================");
+    console.log("THis is Strategy callback");
+    // console.log(jwt_payload);
+    //  console.log("===============$$$$$=============================");
     User.getUserById(jwt_payload._doc._id, (err, user) => {
-      if(err){
+      if (err) {
         return done(err, false);
       }
 
-      if(user){
+      if (user) {
         return done(null, user);
       } else {
         return done(null, false);
