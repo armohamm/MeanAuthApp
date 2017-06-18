@@ -136,5 +136,15 @@ check if we are logged in by checking if token has expiresd or not
 server wale folder me type krna h
 
 
+#Integrating sequelize
+In paksage.json
+  "sequelize": "^3.30.4"
+  "mysql": "^2.11.1",
+
+###starting Mysql
+`mysql -u root -p` 
+pwd - 1234
+
+
 
  

@@ -4,6 +4,9 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const config = require('../config/database');
 const User = require('../models/user');
+var Sequelize = require('sequelize');
+
+var User_seq = require('../models/seq_user');//(Sequelize);
 
 // Register
 router.post('/register', (req, res, next) => {
@@ -11,13 +14,17 @@ router.post('/register', (req, res, next) => {
     name: req.body.name,
     email: req.body.email,
     username: req.body.username,
-    password: req.body.password
+    password: req.body.password,
+    fbuserid: req.body.fbuserid
   });
 
-  User.addUser(newUser, (err, user) => {
+  User_seq.addUser(newUser, (err, user) => {
+  // User.addUser(newUser, (err, user) => {
     if (err) {
+      console.log("err&&&&&&&&&&&&&&&&&&&&&");
       res.json({ success: false, msg: 'Failed to register user' });
     } else {
+      console.log('NO err$$$$$$$$$$$$$$');
       res.json({ success: true, msg: 'User registered' });
     }
   });
@@ -29,14 +36,16 @@ router.post('/authenticate', (req, res, next) => {
   const password = req.body.password;
   console.log(username + " $$$$$$$$");
   console.log(password + " $$$$$$$$\n");
-  User.getUserByUsername(username, (err, user) => {
+  User_seq.getUserByUsername(username, (err, user) => {
+  // User.getUserByUsername(username, (err, user) => {
     if (err) throw err;
+    console.log(user + "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
     if (!user) {
       console.log("blalaslasada==========================");
       return res.json({ success: false, msg: 'User not found' });
     }
-
-    User.comparePassword(password, user.password, (err, isMatch) => {
+    User_seq.comparePassword(password, user.password, (err, isMatch) => {
+    // User.comparePassword(password, user.password, (err, isMatch) => {
       if (err) throw err;
       if (isMatch) {
         const token = jwt.sign(user, config.secret, {
@@ -53,7 +62,8 @@ router.post('/authenticate', (req, res, next) => {
             email: user.email
           }
         });
-      } else {
+      }
+       else {
         return res.json({ success: false, msg: 'Wrong password' });
       }
     });
@@ -66,8 +76,8 @@ router.post('/authenticate', (req, res, next) => {
 // });
 //here the additional param locks the profile route
 router.get('/profile', passport.authenticate('jwt', { session: false }), (req, res, next) => {
-  console.log(req);
-  // console.log(res);
+  // console.log(req.user);
+  // console.log(req);
   res.json({ user: req.user });
 });
 
@@ -87,7 +97,7 @@ router.get('/fbhello', (req, res, next) => {
 
 //fb login
 router.get('/fblogin',
-  passport.authenticate('facebook', { scope: ['public_profile','email'] })
+  passport.authenticate('facebook', { scope: ['public_profile', 'email'] })
   // ,  function(req,res){
   //    console.log("fblogin");
   //    res.json({"name":"sdada"});
@@ -107,7 +117,7 @@ router.get('/fbreturn',
   }*/);
 //google login
 router.get('/googlogin',
-  passport.authenticate('google', { scope: ['profile','email','https://www.googleapis.com/auth/plus.login'] }));
+  passport.authenticate('google', { scope: ['profile', 'email', 'https://www.googleapis.com/auth/plus.login'] }));
 
 router.get('/google/callback',
   passport.authenticate('google', { successRedirect: '/users/fbhello', failureRedirect: '/' })/*,
@@ -129,4 +139,84 @@ router.get('/google/callback',
 //   res.send("FACEBOOK");
 // });
 
+
+///
+router.post('/seq', (req, res, next) => {
+  //  const user_seq = User_seq.findAll({})
+  //  .then((electronics) => electronics.forEach((user) => {
+  //   console.log(user.get('my_id')+' '+ user.get('name'));
+  // }))
+  //  .catch((err) => console.log(err));
+  //  res.json(user_seq);
+  // User_seq.create({//inserting a row
+  //     name: "name2",
+  //     email: "name2",
+  //       username:"name2",
+  //       password: "name2",
+  //       fbuserid: "name2"
+  //   });
+  //  let newUser = {
+  //   name: req.body.name,
+  //   email: req.body.email,
+  //   username: req.body.username,
+  //   password: req.body.password,
+  //   fbuserid: req.body.fbuserid
+
+  // };
+  // console.log(newUser);
+  // User_seq.addUser(newUser, (err, user) => {
+  //   if (err) {
+  //     res.json({ success: false, msg: 'Failed to register user' });
+  //   } else {
+  //     res.json({ success: true, msg: 'User registered' });
+  //   }
+  // });
+  // var array = [];
+
+  // console.log(array.length);
+  // console.log(newUser);
+  // var promise1 = User_seq.findAll({
+  //   where: {
+  //     username: req.body.username
+  //   }
+  // });
+  // var b = promise1.then(onFulfilled, onRejected)
+  // console.log(b);
+  // promise1.then(function(data){
+  //  console.log(data);
+  
+  // }, console.error);
+  // promise2 = promise1.then(function(data){
+  //       data.forEach(function (usr) { 
+  //       //  console.log(usr.dataValues);
+  //        console.log("=======================================");
+  //        array.push( {"id":usr.dataValues.id});
+  //         // console.log("array$$$$"+array );
+  //         // console.log(array.length);
+  //       //  console.log(array);
+  //     });
+  //     return array;
+  // },console.error);
+  // promise2.then(data,console.error);
+  // console.log("#######");
+    // .then(function (data) {
+    //    data.forEach(function (usr) { 
+    //      console.log(usr.dataValues);
+    //      console.log("=======================================");
+    //      array.push( {"id":usr.dataValues.id});
+    //       console.log("array$$$$"+array );
+    //       console.log(array.length);
+    //     //  console.log(array);
+    //     }) 
+    //   })
+  
+  // const username = req.body.username;
+  // const password = req.body.password;
+  // User_seq.comparePassword(password, user.password, (err, isMatch) => {
+  //   if (err) throw err;
+  //    console.log("user===" + user.username);
+    
+  // });
+    
+});
 module.exports = router;
