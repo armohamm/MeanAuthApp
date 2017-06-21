@@ -84,8 +84,8 @@ the above line creates the folder containing allt he necessary dependencies and 
 To run the applicaation go the name_of_file folder and type ` ng serve` this will host the website on the port 4200
 
 #t5
-use cmd ` ng g component comp_name ` to add component navbar, similarly
-using ng cmd it automaticaly adds to app.module.ts
+* use cmd ` ng g component comp_name ` to add component navbar, similarly
+* using ng cmd it automaticaly adds to app.module.ts
 
 - we import RouterMOdule 
 - and then we mntion the module in @NgModule wirh the routes object as param 
