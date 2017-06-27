@@ -25,7 +25,7 @@ const app = express();
 
 const users = require('./routes/users');
 const rt_mail = require('./routes/mail');
-const rt_mail1 = require('./routes/mail1');
+const rt_mail1 = require('./routes/mail2');
 // Port Number
 const port = 3000;
 
@@ -58,7 +58,7 @@ require('./config/passport_linkedin')(passport);
 
 app.use('/users', users);
 app.use('/users', rt_mail);
-app.use('/mail_temp', rt_mail1);
+// app.use('/mail_temp', rt_mail1);
 // Index Route
 app.get('/', (req, res) => {
   res.send('Invalid Endpoint');

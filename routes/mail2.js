@@ -6,19 +6,19 @@ var mandrill_Client = new mandrill.Mandrill('kQKG7moJ9DJ75to2oDbHNA');
 // var timelineData = require('../models/timelineData');
 // var webshot = require('webshot');
 // Define router
-var router = express.Router(); //comment this line to the file individually
+var router = express.Router();
 
 ////uncomment below 3 line to the file individually
 // const router = express();
 // const bodyParser = require('body-parser');
 //// Body Parser Middleware
 // router.use(bodyParser.json());
+// const router = express();
 /**
  * POST /api/email/send
  */
-router.post('/test1', (req, res , next) => {
+router.get('/test1', (req, res) => {
     res.send("in mail file-==============")
-    console.log(req.body.myhead);
 });
 router.post('/send', (req, res) => {
 
@@ -127,7 +127,6 @@ router.post('/send', (req, res) => {
     });
 
 });
-
 
 
 // Start Server

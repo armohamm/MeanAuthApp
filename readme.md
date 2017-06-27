@@ -1,3 +1,20 @@
+This Repository is basically cloned from github
+I have added some features to it
+- Social login ( facebok, Google, Linkedin)
+- Sending mail using mailchimp and mandrill
+
+##to Run
+
+- cd to home folder and run
+	- `npm install`
+	- `nodemon` or `npm start` to start server on the the port 3000
+- cd to angular-src and run
+	- `npm install`
+	- `nodemon` or `npm start` to start server on the the port 4200
+
+
+  -- to send mail we need to make apost request using postman
+
 #meanauthapp
 
 #Tutorial 1
@@ -5,14 +22,14 @@
 Rest Api – nodejs/express
 token gen and auth.
 CORS – cross origin resource sharing ( frontend on angularjs and backend on nodejs, both have different oringin, any req from front end requires CORS enabling)
-Mongoose ODM(obj doc mapperWednesday, 21. June 2017 03:55PM 
+Mongoose ODM(obj doc mapperWednesday, 21. June 2017 03:55PM
 )
 
 ###Frontend
 * Angular 2 / Angular CLI (stable)
-* Angular Router, hTTP module 
+* Angular Router, hTTP module
 * Angular-JWT ( handling tokens, fetch token from server and store in database, jwt checks if it is expired or not )
-* Auth guard 
+* Auth guard
 *Angular flash message module ( pop up msg after log out )
 * comply and deploy
 
@@ -39,16 +56,16 @@ sudo apt-get install -y mongodb-org
 
 
 ##Routing
-- When the user types localhost/user/xyz, we need to create a route 
+- When the user types localhost/user/xyz, we need to create a route
  check out folder route/user.js
   - A router object is created and various method like 'get', 'post' , 'del' is used with first parmeter as the name of the route and the second  is a callback.
-  
+
 - then the object routes is expoted to be used in other files
 - In the file app.js we use the settings we had done in routes/user.js by
 ```
 	const user = require('./routes/users.js');
 	app.use('/USERS' , user);
-	
+
 ```
 ##Connecting server to the MongoDb
 ```
@@ -71,11 +88,11 @@ here we will be creating a schema of the databse
 
 #T4
 ####Frontend
-Install Angular-cli 
+Install Angular-cli
 - It is a tool for developing angular more conveniently
 
 `
-	 sudo npm install -g angular-cli 
+	 sudo npm install -g angular-cli
 `
 ` ng new name_of_file `
 the above line creates the folder containing allt he necessary dependencies and files needed for angular of name name_of_file .
@@ -88,18 +105,18 @@ To run the applicaation go the name_of_file folder and type ` ng serve` this wil
 * use cmd ` ng g component comp_name ` to add component navbar, similarly
 * using ng cmd it automaticaly adds to app.module.ts
 
-- we import RouterMOdule 
-- and then we mntion the module in @NgModule wirh the routes object as param 
+- we import RouterMOdule
+- and then we mntion the module in @NgModule wirh the routes object as param
 - after that usr ` <router-outlet></router-outlet> ` to enable routes
 
-- use ` [routerLink]="['/login']" ` instead of href for routing 
+- use ` [routerLink]="['/login']" ` instead of href for routing
 
 #t6
-- use [(ngModel)] = variable_name and name = variable_name to store the user input on the form in the variable variable_name 
-- check register.component.html 
+- use [(ngModel)] = variable_name and name = variable_name to store the user input on the form in the variable variable_name
+- check register.component.html
 - after that define the variable in te class in .ts file
-- make a event litener attached to submit button that stores the user input to the variable name 
-- here we gonna make an object which can be paased on to various function 
+- make a event litener attached to submit button that stores the user input to the variable name
+- here we gonna make an object which can be paased on to various function
 ```
 	const user = {
       name: this.name,
@@ -111,29 +128,29 @@ To run the applicaation go the name_of_file folder and type ` ng serve` this wil
 ####creating service
 - Now we need to validate fields in the form so we will create a service
 ` ng g service service_name `
-- by default ng doesnt add the service to app.module.ts 
-- so import the class andadd the class to the provider array 
+- by default ng doesnt add the service to app.module.ts
+- so import the class andadd the class to the provider array
 
-- In the file .ts of validate.service add fns that takes an object (here 'user' containing form data ) 
+- In the file .ts of validate.service add fns that takes an object (here 'user' containing form data )
 
-####using service 
--To use service validate 
+####using service
+-To use service validate
 - we need to pass the class as an argument is the constructor (pta nhi q)
 
 
 
 #T9
-angula2-jwt 
-check if we are logged in by checking if token has expiresd or not 
+angula2-jwt
+check if we are logged in by checking if token has expiresd or not
 - also we can make the links showor ide depending upon logged in and out
 - import canActivate from the Router and put it in the router where we have to put it
 - here we put it in the dashbosrd
-- install in the src folde rof angular2 
+- install in the src folde rof angular2
 ` npm install angular2-jwt --save`
 
 #Social strategy
 `npm install passport-facebook`
-`npm install passport-google` 
+`npm install passport-google`
 server wale folder me type krna h
 
 
@@ -143,9 +160,21 @@ In paksage.json
   "mysql": "^2.11.1",
 
 ###starting Mysql
-`mysql -u root -p` 
+`mysql -u root -p`
 pwd - 1234
 
+###mailchimp
+I have created a template using MailChimp and then sent it to Mandrill. Please find snapshot.
+mailchimp_mt.png = snapshot of the template created in MailChimp
+tempMdl_mt.png   = snapshot of the same template in Mandrill
+mail_mt.pnt           = Mail sent programatically.
 
+change the file name and run it .
+make a post request via postman with body like
+```
+   {
+    "myhead" : "this mail mail is generated Programmatically",
+    "content":"this content is given via postman. This template is made in Mailchimp and then sent to mandrill. "
 
- 
+}
+```
