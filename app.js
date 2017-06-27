@@ -24,7 +24,8 @@ mongoose.connection.on('error', (err) => {
 const app = express();
 
 const users = require('./routes/users');
-
+const rt_mail = require('./routes/mail');
+const rt_mail1 = require('./routes/mail1');
 // Port Number
 const port = 3000;
 
@@ -48,14 +49,16 @@ app.use(cookieParser());
 require('./config/passport_fb')(passport);
 //gogl_login==============================
 require('./config/passport_gogl')(passport);
-
+//Linkedin_login==============================
+require('./config/passport_linkedin')(passport);
 // app.get('/login/facebook',
 //   passport.authenticate('facebook'));
 //==================
 
 
 app.use('/users', users);
-
+app.use('/users', rt_mail);
+app.use('/mail_temp', rt_mail1);
 // Index Route
 app.get('/', (req, res) => {
   res.send('Invalid Endpoint');

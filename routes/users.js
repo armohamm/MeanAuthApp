@@ -19,7 +19,7 @@ router.post('/register', (req, res, next) => {
   });
 
   User_seq.addUser(newUser, (err, user) => {
-  // User.addUser(newUser, (err, user) => {
+    // User.addUser(newUser, (err, user) => {
     if (err) {
       console.log("err&&&&&&&&&&&&&&&&&&&&&");
       res.json({ success: false, msg: 'Failed to register user' });
@@ -37,7 +37,7 @@ router.post('/authenticate', (req, res, next) => {
   console.log(username + " $$$$$$$$");
   console.log(password + " $$$$$$$$\n");
   User_seq.getUserByUsername(username, (err, user) => {
-  // User.getUserByUsername(username, (err, user) => {
+    // User.getUserByUsername(username, (err, user) => {
     if (err) throw err;
     console.log(user + "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
     if (!user) {
@@ -45,7 +45,7 @@ router.post('/authenticate', (req, res, next) => {
       return res.json({ success: false, msg: 'User not found' });
     }
     User_seq.comparePassword(password, user.password, (err, isMatch) => {
-    // User.comparePassword(password, user.password, (err, isMatch) => {
+      // User.comparePassword(password, user.password, (err, isMatch) => {
       if (err) throw err;
       if (isMatch) {
         const token = jwt.sign(user, config.secret, {
@@ -63,7 +63,7 @@ router.post('/authenticate', (req, res, next) => {
           }
         });
       }
-       else {
+      else {
         return res.json({ success: false, msg: 'Wrong password' });
       }
     });
@@ -95,6 +95,11 @@ router.get('/fbhello', (req, res, next) => {
   res.send('FBLogin')
 });
 
+router.get('/loginfailure', (req, res, next) => {
+  console.log("IN Login FAilure");
+  res.send('LoginFAILED')
+});
+
 //fb login
 router.get('/fblogin',
   passport.authenticate('facebook', { scope: ['public_profile', 'email'] })
@@ -117,7 +122,11 @@ router.get('/fbreturn',
   }*/);
 //google login
 router.get('/googlogin',
-  passport.authenticate('google', { scope: ['profile', 'email', 'https://www.googleapis.com/auth/plus.login'] }));
+  passport.authenticate('google', {
+    scope: ['profile', 'email', 'https://www.googleapis.com/auth/plus.login'],
+    // accessType: 'offline',
+    approvalPrompt: 'force'
+  }));
 
 router.get('/google/callback',
   passport.authenticate('google', { successRedirect: '/users/fbhello', failureRedirect: '/' })/*,
@@ -138,7 +147,18 @@ router.get('/google/callback',
 // router.get('/fblogin', (req, res, next) => {
 //   res.send("FACEBOOK");
 // });
-
+//linkedin login
+router.get('/linkedinlogin',
+  passport.authenticate('linkedin', { state: 'SOME STATE' }),
+  function (req, res) {
+    // The request will be redirected to LinkedIn for authentication, so this 
+    // function will not be called. 
+  });
+router.get('/linkedin/callback',
+  passport.authenticate('linkedin', {
+    successRedirect: '/users/fbhello',
+    failureRedirect: '/'
+  }));
 
 ///
 router.post('/seq', (req, res, next) => {
@@ -184,7 +204,7 @@ router.post('/seq', (req, res, next) => {
   // console.log(b);
   // promise1.then(function(data){
   //  console.log(data);
-  
+
   // }, console.error);
   // promise2 = promise1.then(function(data){
   //       data.forEach(function (usr) { 
@@ -199,24 +219,24 @@ router.post('/seq', (req, res, next) => {
   // },console.error);
   // promise2.then(data,console.error);
   // console.log("#######");
-    // .then(function (data) {
-    //    data.forEach(function (usr) { 
-    //      console.log(usr.dataValues);
-    //      console.log("=======================================");
-    //      array.push( {"id":usr.dataValues.id});
-    //       console.log("array$$$$"+array );
-    //       console.log(array.length);
-    //     //  console.log(array);
-    //     }) 
-    //   })
-  
+  // .then(function (data) {
+  //    data.forEach(function (usr) { 
+  //      console.log(usr.dataValues);
+  //      console.log("=======================================");
+  //      array.push( {"id":usr.dataValues.id});
+  //       console.log("array$$$$"+array );
+  //       console.log(array.length);
+  //     //  console.log(array);
+  //     }) 
+  //   })
+
   // const username = req.body.username;
   // const password = req.body.password;
   // User_seq.comparePassword(password, user.password, (err, isMatch) => {
   //   if (err) throw err;
   //    console.log("user===" + user.username);
-    
+
   // });
-    
+
 });
 module.exports = router;

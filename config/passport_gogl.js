@@ -5,6 +5,8 @@ const User = require('../models/user');
 
 const auth_ids = require('../soc_key/auth_key');
 
+//documemtation
+//https://www.npmjs.com/package/passport-google-auth
 
 module.exports = function (passport) {
 
@@ -31,6 +33,11 @@ module.exports = function (passport) {
             process.nextTick(function () {
                 console.log("Googleprofile$$$$$$$$$");
             });
+            console.log("In Passport Strategy####################################");
+            // console.log(profile);
+            console.log(accessToken);
+            console.log("&&&&&&&&&&&&&&&&&&&&&&####################################");
+            console.log(refreshToken);
             return cb(null, profile);
         }));
 

@@ -5,7 +5,8 @@
 Rest Api – nodejs/express
 token gen and auth.
 CORS – cross origin resource sharing ( frontend on angularjs and backend on nodejs, both have different oringin, any req from front end requires CORS enabling)
-Mongoose ODM(obj doc mapper)
+Mongoose ODM(obj doc mapperWednesday, 21. June 2017 03:55PM 
+)
 
 ###Frontend
 * Angular 2 / Angular CLI (stable)
