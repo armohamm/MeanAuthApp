@@ -4,6 +4,7 @@ I have added some features to it
 - Sending mail using mailchimp and mandrill
 
 ##to Run
+- delete nodemodule folder( it will be installed automatically using `npm install`)
 
 - cd to home folder and run
 	- `npm install`
