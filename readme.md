@@ -1,4 +1,4 @@
-This Repository is basically cloned from github
+This Repository is cloned from github
 I have added some features to it
 - Social login ( facebok, Google, Linkedin)
 - Sending mail using mailchimp and mandrill
